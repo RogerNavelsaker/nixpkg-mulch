@@ -5,7 +5,7 @@
     "": {
       "name": "@rona/nix-mulch-cli",
       "dependencies": {
-        "@os-eco/mulch-cli": "0.10.2",
+        "@os-eco/mulch-cli": "0.10.4",
       },
       "devDependencies": {
         "@types/bun": "^1.3.10",
@@ -14,7 +14,7 @@
     },
   },
   "packages": {
-    "@os-eco/mulch-cli": ["@os-eco/mulch-cli@0.10.2", "", { "dependencies": { "ajv": "^8.17.1", "chalk": "^5.6.2", "commander": "^14.0.3", "js-yaml": "^4.1.1" }, "bin": { "mulch": "src/cli.ts", "ml": "src/cli.ts" } }, "sha512-rAqxPytJV9NSgAxF4NQJ/QcImdsYDO0nEHwtz4G8J7xK/Wi08GzsbEU+L5WmxDF/keGO/stnDb7v3V5ladFGwQ=="],
+    "@os-eco/mulch-cli": ["@os-eco/mulch-cli@0.10.4", "", { "dependencies": { "ajv": "^8.17.1", "chalk": "^5.6.2", "commander": "^14.0.3", "js-yaml": "^4.1.1" }, "bin": { "mulch": "src/cli.ts", "ml": "src/cli.ts" } }, "sha512-DTNCLYOXvRitIk32j7GcBOKdKhf8uXfpM+vUJf33aQt2BY26JOX5v5FOEU3PH1LXd5YXGnf6qU6RL1Tav3hGVw=="],
 
     "@types/bun": ["@types/bun@1.3.12", "", { "dependencies": { "bun-types": "1.3.12" } }, "sha512-DBv81elK+/VSwXHDlnH3Qduw+KxkTIWi7TXkAeh24zpi5l0B2kUg9Ga3tb4nJaPcOFswflgi/yAvMVBPrxMB+A=="],
 

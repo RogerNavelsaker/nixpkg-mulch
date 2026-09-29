@@ -1,4 +1,4 @@
-{ bash, bun2nix, installShellFiles, lib, symlinkJoin }:
+{ bash, bun2nix, installShellFiles, lib, perl, symlinkJoin }:
 
 let
   manifest = builtins.fromJSON (builtins.readFile ./package-manifest.json);
@@ -42,7 +42,11 @@ EOF
     inherit src bunDeps;
     module = "node_modules/${manifest.package.npmName}/${manifest.binary.entrypoint}";
     bunCompileToBytecode = false;
-    nativeBuildInputs = [ installShellFiles ];
+    nativeBuildInputs = [ installShellFiles perl ];
+    preBuild = ''
+      versionFile="node_modules/${manifest.package.npmName}/src/utils/version.ts"
+      perl -0pi -e 's/export function getCurrentVersion\(\): string \{\n\tconst pkgPath = join\(import\.meta\.dir, "\.\.", "\.\.", "package\.json"\);\n\tconst pkg = JSON\.parse\(readFileSync\(pkgPath, "utf-8"\)\) as \{ version: string \};\n\treturn pkg\.version;\n\}/export function getCurrentVersion(): string {\n\treturn "${manifest.package.version}";\n}/' "$versionFile"
+    '';
     postInstall = ''
       mkdir -p "$out/libexec"
       mv "$out/bin/${manifest.binary.name}" "$out/libexec/${manifest.binary.name}"
@@ -50,6 +54,7 @@ EOF
       cp ${../skill/SKILL.md} "$out/share/${manifest.binary.name}/skill/SKILL.md"
       cat > "$out/bin/${manifest.binary.name}" <<EOF
 #!${lib.getExe bash}
+export MULCH_LOG_JSON="''${MULCH_LOG_JSON:-1}"
 if [ "\$1" = "skill" ]; then
   cat "$out/share/${manifest.binary.name}/skill/SKILL.md"
   exit 0

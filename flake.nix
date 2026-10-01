@@ -42,7 +42,7 @@
         default = pkgs.callPackage ./nix/package.nix { };
       });
 
-      devShells = forAllSystems ({ pkgs }: {
+      devShells = forAllSystems ({ pkgs, system }: {
         default = pkgs.mkShell {
           packages = with pkgs; [
             bun
